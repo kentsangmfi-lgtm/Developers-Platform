@@ -9,6 +9,7 @@ const sidebars: SidebarsConfig = {
       collapsed: false,
       items: [
         'getting-started/first-trade',
+        'getting-started/get-prices',
         'fx-server/general-rest-api-information',
       ],
     },

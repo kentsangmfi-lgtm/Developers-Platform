@@ -125,6 +125,7 @@ Connect to `GET /updateEventStream` for position, order, execution, and cancella
 
 ## Next steps
 
+- See [Get live prices](./get-prices.md) to install `fxserverclientpython` and fetch live prices for a contract.
 - See [REST API essentials](../fx-server/general-rest-api-information.md) for response handling, retries, and quoted pricing.
 - See the [FxServer Trader API](../fx-server/openapi-trader.mdx) for request and event schemas.
 - See the [WebProxy API](../web-proxy/openapi.mdx) for account data, contract settings, API keys, and token exchange.
