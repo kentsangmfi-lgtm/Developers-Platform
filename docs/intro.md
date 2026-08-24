@@ -15,14 +15,19 @@ Trader OpenAPI separates authentication, trading, and chart data into three APIs
 
 ## Integration workflow
 
-1. Create a WebProxy session with the trader credentials.
-2. Create an API key with the required permissions.
-3. Exchange the API key for a short-lived access token.
-4. Retrieve the selected contract settings and calculate a valid amount.
-5. Submit a market deal or order to FxServer.
-6. Connect to `GET /updateEventStream` and reconcile asynchronous updates.
+Start from the API Key Management page in the Trading Terminal:
 
-Follow [Make your first trade](./getting-started/first-trade.md) for a complete request sequence. See [REST API essentials](./fx-server/general-rest-api-information.md) for authentication, response handling, amount calculation, and price modes.
+1. Create an API key with `read` permission for live prices and `trade` permission for trading operations.
+2. Copy the API key and the connection settings supplied for the account.
+3. Exchange the API key for a short-lived access token with WebProxy `POST /api/tokens/auth`.
+4. Retrieve the selected contract settings and calculate a valid amount.
+5. For an algorithmic strategy, use `fxserverclientpython` for live prices and Realtime Chart Server for historical bars.
+6. Submit the resulting market deal or order through the FxServer REST API.
+7. Connect to `GET /updateEventStream` and reconcile asynchronous updates.
+
+The supported Phase 1 integration keeps pricing and trading responsibilities separate: the Python client provides live prices, ChartServer provides historical bars, and FxServer REST endpoints perform trading operations.
+
+Follow [Make your first trade](./getting-started/first-trade.md) for the REST request sequence, [Get live prices](./getting-started/get-prices.md) for the Python price client, and [Realtime Chart Server](./realtime-chart-server/overview.md) for historical bars. See [REST API essentials](./fx-server/general-rest-api-information.md) for authentication, response handling, amount calculation, and price modes.
 
 ## Before you trade
 

@@ -35,7 +35,9 @@ user_config_dict = {
 }
 ```
 
-The only missing piece is `valid_generated_token`. You can create it using the steps below:
+Use the values supplied by the API Key Management page rather than constructing the endpoints or credentials yourself. The `valid_generated_token` value is the API key copied from that page; it is not the short-lived `access_token` returned by WebProxy `POST /api/tokens/auth`.
+
+When `FxServerClientLib.login()` runs, the library exchanges the API key through the configured WebProxy endpoint and establishes the supported price session. Do not replace `valid_generated_token` with an access token.
 
 ### Create a new API key
 
@@ -90,14 +92,23 @@ If login fails, double check that you copied the config block correctly and that
 
 ## 4. Get the latest price for a symbol
 
-Once logged in, you can fetch the latest price for any contract/symbol (e.g. `XAUUSD`, `GBPNZD`) using `get_price_info`:
+Once logged in, use the exact contract code returned by the account's contract settings. Price updates arrive asynchronously, so wait for the first quote instead of treating an immediate `None` as a missing contract:
 
 ```python
-    price = fxserver_client_lib.get_price_info("XAUUSD")
-    print("XAUUSD price:", price)
+    contract_code = "CONTRACT_CODE_FROM_CONTRACT_SETTINGS"
+
+    for _ in range(100):
+        price = fxserver_client_lib.get_price_info(contract_code)
+        if price is not None:
+            break
+        await asyncio.sleep(0.1)
+    else:
+        raise TimeoutError(f"No price received for {contract_code}")
+
+    print(f"{contract_code} price:", price)
 ```
 
-Add this right after the `login_reply` line inside `main()`. If the symbol doesn't exist, `price` will be `None`.
+Add this right after the `login_reply` line inside `main()`. If no quote arrives within about 10 seconds, the example raises `TimeoutError`; verify the contract code and connection settings before retrying.
 
 ### Putting it together
 
@@ -127,8 +138,17 @@ async def main():
         print("Login failed:", e)
         return
 
-    price = fxserver_client_lib.get_price_info("XAUUSD")
-    print("XAUUSD price:", price)
+    contract_code = "CONTRACT_CODE_FROM_CONTRACT_SETTINGS"
+
+    for _ in range(100):
+        price = fxserver_client_lib.get_price_info(contract_code)
+        if price is not None:
+            break
+        await asyncio.sleep(0.1)
+    else:
+        raise TimeoutError(f"No price received for {contract_code}")
+
+    print(f"{contract_code} price:", price)
 
 if __name__ == "__main__":
     asyncio.run(main())
@@ -136,5 +156,6 @@ if __name__ == "__main__":
 
 ## Next steps
 
+- See [Realtime Chart Server](../realtime-chart-server/overview.md) to resolve a chart code and retrieve historical bars.
 - See [Price concept](../business-logic/03-price-concept.md) for how prices are formed and quoted.
 - See [Price streaming](../fx-server/price-steaming.md) for streaming price updates instead of one-off fetches.

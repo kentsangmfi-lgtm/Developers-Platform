@@ -1,65 +1,28 @@
 ---
 sidebar_position: 1
 title: Make your first trade
-description: Create an access token, retrieve contract settings, and submit a market deal.
+description: Use an API key from API Key Management to retrieve contract settings and submit a market deal.
 ---
 
-This guide creates a WebProxy session and access token, then submits a market deal to FxServer. Replace each placeholder with a value assigned to your environment.
+This guide starts with an API key and connection settings from the API Key Management page, exchanges the key for an access token, and submits a market deal to FxServer.
 
-## 1. Set your environment
+## 1. Create and copy an API key
+
+Log in to the Trading Terminal and open the API Key Management page. Create an API key with `read` and `trade` permissions, then copy the generated key and the WebProxy and FxServer REST endpoints supplied for the account.
+
+The API key is shown only when it is generated. Store it securely and do not expose it in client-side code, logs, or version control.
+
+Set the copied values in a secure local environment:
 
 ```bash
 export WEB_PROXY_URL="https://your-webproxy-host"
 export FXSERVER_URL="https://your-fxserver-host"
-export TRADER_USER="your-user-id"
-export TRADER_PASSWORD="your-password"
+export API_KEY="api-key-copied-from-api-key-management"
 ```
 
-Use these variables only in a secure local environment. In production, load credentials from a server-side secret manager and never expose them to client-side code.
+In production, load these values from a server-side secret manager.
 
-## 2. Create a login session
-
-```bash
-curl --request POST "$WEB_PROXY_URL/api/session" \
-  --header 'Content-Type: application/json' \
-  --data "{
-    \"checks\": {
-      \"user\": {\"userId\": \"$TRADER_USER\"},
-      \"password\": {\"password\": \"$TRADER_PASSWORD\"}
-    }
-  }"
-```
-
-Store `sessionToken` from the response:
-
-```bash
-export SESSION_TOKEN="session-token-from-the-login-response"
-```
-
-If the response contains a `challenge`, complete the required OTP check with `PATCH /api/session/{sessionId}` before continuing. See the [WebProxy API](../web-proxy/openapi.mdx) for the request schema.
-
-## 3. Create and exchange an API key
-
-Create a key with only the permissions your integration requires:
-
-```bash
-curl --request POST "$WEB_PROXY_URL/api/tokens/new" \
-  --header "Authorization: Bearer $SESSION_TOKEN" \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "name": "local-onboarding",
-    "permissions": ["read", "trade"],
-    "expirationDate": "2030-12-31"
-  }'
-```
-
-The response body contains the API key as plain text. Store it securely:
-
-```bash
-export API_KEY="api-key-from-the-create-token-response"
-```
-
-Exchange the API key for a short-lived access token:
+## 2. Exchange the API key
 
 ```bash
 curl --request POST "$WEB_PROXY_URL/api/tokens/auth" \
@@ -74,7 +37,7 @@ export ACCESS_TOKEN="access-token-from-the-token-exchange-response"
 
 The `expires_in` value is measured in minutes. Exchange the existing API key again when the access token expires.
 
-## 4. Retrieve the contract settings
+## 3. Retrieve the contract settings
 
 This endpoint returns settings for all available contracts. Find the record whose `market` matches the contract you plan to trade:
 
@@ -93,7 +56,7 @@ incrementAmount = minLotIncrementUnit × contractSize
 
 Send an amount that is at least `minimumAmount` and is a multiple of `incrementAmount`. For example, when `contractSize` is `100,000`, `0.01` lot is an `amount` of `1,000`.
 
-## 5. Submit a market deal
+## 4. Submit a market deal
 
 Market mode uses FxServer's latest quote. Set `priceMode` to `1`, and omit `price` and `priceTag`. Replace `123456` with an integer that is unique for this logical request.
 
@@ -112,7 +75,7 @@ curl --request POST "$FXSERVER_URL/addDeal" \
 
 Use one `clientOrderId` per logical request. If the outcome is uncertain, retry with the same ID rather than generating a new one. A `409 Conflict` response means the server already accepted that ID for the account and trade date; reconcile the original request before taking further action.
 
-## 6. Handle the outcome
+## 5. Handle the outcome
 
 - `200 OK` means the request completed successfully.
 - `202 Accepted` means the request is still being processed. Inspect `type`, such as `HEDGE`, `DELAY`, or `MANUAL`, and do not treat the response as a completed deal.
@@ -122,6 +85,41 @@ Use one `clientOrderId` per logical request. If the outcome is uncertain, retry 
 - `429 Too Many Requests` means the request was rate limited.
 
 Connect to `GET /updateEventStream` for position, order, execution, and cancellation updates. Store references returned by successful trade requests and reconcile the stream with the resulting position and order state.
+
+## Optional: Create an API key programmatically
+
+The API Key Management page is the recommended onboarding path. Integrations that need to create a key through WebProxy can first create a login session:
+
+```bash
+export TRADER_USER="your-user-id"
+export TRADER_PASSWORD="your-password"
+
+curl --request POST "$WEB_PROXY_URL/api/session" \
+  --header 'Content-Type: application/json' \
+  --data "{
+    \"checks\": {
+      \"user\": {\"userId\": \"$TRADER_USER\"},
+      \"password\": {\"password\": \"$TRADER_PASSWORD\"}
+    }
+  }"
+```
+
+Store `sessionToken` from the response. If the response contains a `challenge`, complete the required OTP check with `PATCH /api/session/{sessionId}` before continuing. Then create the API key:
+
+```bash
+export SESSION_TOKEN="session-token-from-the-login-response"
+
+curl --request POST "$WEB_PROXY_URL/api/tokens/new" \
+  --header "Authorization: Bearer $SESSION_TOKEN" \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "local-onboarding",
+    "permissions": ["read", "trade"],
+    "expirationDate": "2030-12-31"
+  }'
+```
+
+The response body contains the API key as plain text. Store it securely, assign it to `API_KEY`, and continue from [Exchange the API key](#2-exchange-the-api-key).
 
 ## Next steps
 
