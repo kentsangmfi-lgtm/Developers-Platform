@@ -10,6 +10,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'getting-started/first-trade',
         'getting-started/get-prices',
+        'realtime-chart-server/overview',
         'fx-server/general-rest-api-information',
       ],
     },
@@ -31,7 +32,6 @@ const sidebars: SidebarsConfig = {
         'business-logic/currency-overview',
         'business-logic/price-concept',
         'fx-server/price-steaming',
-        'realtime-chart-server/overview',
       ],
     },
   ],
