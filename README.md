@@ -32,6 +32,7 @@ The guides in `docs/` are curated for this developer platform and are not overwr
 
 ```bash
 bun run typecheck
+bun run test:i18n
 bun run build
 ```
 

@@ -1,0 +1,18 @@
+{
+  "version.label": {
+    "message": "目前版本",
+    "description": "The label for version current"
+  },
+  "sidebar.mainSidebar.category.Get started": {
+    "message": "開始使用",
+    "description": "The label for category 'Get started' in sidebar 'mainSidebar'"
+  },
+  "sidebar.mainSidebar.category.API reference": {
+    "message": "API 參考",
+    "description": "The label for category 'API reference' in sidebar 'mainSidebar'"
+  },
+  "sidebar.mainSidebar.category.Trading concepts": {
+    "message": "交易概念",
+    "description": "The label for category 'Trading concepts' in sidebar 'mainSidebar'"
+  }
+}

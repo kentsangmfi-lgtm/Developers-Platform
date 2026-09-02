@@ -8,6 +8,7 @@
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "lint:docs": "markdownlint-cli2 \"docs/**/*.{md,mdx}\" \"README.md\"",
+    "test:i18n": "bun test scripts/i18n-parity.test.ts",
     "typecheck": "tsc",
     "sync:content": "bun scripts/sync-content.ts"
   },

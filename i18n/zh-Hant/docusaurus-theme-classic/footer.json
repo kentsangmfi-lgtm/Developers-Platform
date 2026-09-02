@@ -1,0 +1,58 @@
+{
+  "link.title.Onboarding": {
+    "message": "開始使用",
+    "description": "The title of the footer links column with title=Onboarding in the footer"
+  },
+  "link.title.API reference": {
+    "message": "API 參考",
+    "description": "The title of the footer links column with title=API reference in the footer"
+  },
+  "link.title.Core concepts": {
+    "message": "核心概念",
+    "description": "The title of the footer links column with title=Core concepts in the footer"
+  },
+  "link.item.label.Platform overview": {
+    "message": "平台概覽",
+    "description": "The label of footer link with label=Platform overview linking to /docs/intro"
+  },
+  "link.item.label.Make your first trade": {
+    "message": "完成第一筆交易",
+    "description": "The label of footer link with label=Make your first trade linking to /docs/getting-started/first-trade"
+  },
+  "link.item.label.REST essentials": {
+    "message": "REST 基礎",
+    "description": "The label of footer link with label=REST essentials linking to /docs/fx-server/general-rest-api-information"
+  },
+  "link.item.label.FxServer Trader": {
+    "message": "FxServer Trader",
+    "description": "The label of footer link with label=FxServer Trader linking to /docs/fx-server/openapi-trader"
+  },
+  "link.item.label.WebProxy": {
+    "message": "WebProxy",
+    "description": "The label of footer link with label=WebProxy linking to /docs/web-proxy/openapi"
+  },
+  "link.item.label.Realtime Chart Server": {
+    "message": "Realtime Chart Server",
+    "description": "The label of footer link with label=Realtime Chart Server linking to /docs/realtime-chart-server/openapi"
+  },
+  "link.item.label.Contracts": {
+    "message": "合約",
+    "description": "The label of footer link with label=Contracts linking to /docs/business-logic/contract-overview"
+  },
+  "link.item.label.Currencies": {
+    "message": "貨幣",
+    "description": "The label of footer link with label=Currencies linking to /docs/business-logic/currency-overview"
+  },
+  "link.item.label.Price concepts": {
+    "message": "價格概念",
+    "description": "The label of footer link with label=Price concepts linking to /docs/business-logic/price-concept"
+  },
+  "link.item.label.Chart data and periods": {
+    "message": "Chart 數據及週期",
+    "description": "The label of footer link with label=Chart data and periods linking to /docs/realtime-chart-server/overview"
+  },
+  "copyright": {
+    "message": "Copyright © 2026 mF Technologies. 開發者平台。",
+    "description": "The footer copyright"
+  }
+}
