@@ -52,6 +52,62 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+html[lang='zh-Hant'] {
+  --font-cjk: 'Microsoft JhengHei', 'PingFang TC', 'Noto Sans TC', sans-serif;
+}
+
+html[lang='zh-Hans'] {
+  --font-cjk: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans SC', sans-serif;
+}
+
+html[lang='zh-Hant'],
+html[lang='zh-Hans'] {
+  --ifm-font-family-base: var(--font-cjk);
+  --ifm-heading-font-family: var(--font-cjk);
+  --ifm-font-family-monospace: 'Cascadia Mono', 'SFMono-Regular', Consolas,
+    var(--font-cjk), monospace;
+}
+
+html[lang='zh-Hant'] body,
+html[lang='zh-Hans'] body {
+  line-height: 1.75;
+}
+
+html[lang='zh-Hant'] .navbar__title,
+html[lang='zh-Hant'] .navbar__link,
+html[lang='zh-Hant'] .footer,
+html[lang='zh-Hant'] .theme-doc-sidebar-container,
+html[lang='zh-Hant'] .table-of-contents,
+html[lang='zh-Hans'] .navbar__title,
+html[lang='zh-Hans'] .navbar__link,
+html[lang='zh-Hans'] .footer,
+html[lang='zh-Hans'] .theme-doc-sidebar-container,
+html[lang='zh-Hans'] .table-of-contents {
+  font-family: var(--font-cjk);
+  letter-spacing: 0;
+}
+
+html[lang='zh-Hant'] .theme-doc-markdown h1,
+html[lang='zh-Hant'] .theme-doc-markdown h2,
+html[lang='zh-Hant'] .theme-doc-markdown h3,
+html[lang='zh-Hans'] .theme-doc-markdown h1,
+html[lang='zh-Hans'] .theme-doc-markdown h2,
+html[lang='zh-Hans'] .theme-doc-markdown h3 {
+  font-family: var(--font-cjk);
+  letter-spacing: 0;
+}
+
+html[lang='zh-Hant'] .theme-doc-markdown h1,
+html[lang='zh-Hans'] .theme-doc-markdown h1 {
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  line-height: 1.2;
+}
+
+html[lang='zh-Hant'] .theme-doc-markdown h2,
+html[lang='zh-Hans'] .theme-doc-markdown h2 {
+  line-height: 1.35;
+}
+
 .navbar {
   border-bottom: 1px solid rgba(36, 50, 61, 0.2);
   box-shadow: none;

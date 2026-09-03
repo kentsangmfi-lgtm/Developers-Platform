@@ -1,0 +1,30 @@
+{
+  "title": {
+    "message": "开发者平台",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "mF Technologies",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Guides": {
+    "message": "指南",
+    "description": "Navbar item with label Guides"
+  },
+  "item.label.Trader API": {
+    "message": "Trader API",
+    "description": "Navbar item with label Trader API"
+  },
+  "item.label.WebProxy API": {
+    "message": "WebProxy API",
+    "description": "Navbar item with label WebProxy API"
+  },
+  "item.label.Chart API": {
+    "message": "Chart API",
+    "description": "Navbar item with label Chart API"
+  },
+  "item.label.Start building": {
+    "message": "开始使用",
+    "description": "Navbar item with label Start building"
+  }
+}

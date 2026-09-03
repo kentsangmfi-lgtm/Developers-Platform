@@ -18,6 +18,7 @@ validate-site:
     - bun install --frozen-lockfile
     - bun run lint:docs
     - bun run typecheck
+    - bun run test:i18n
     - bun run build
 
 deploy-pages:

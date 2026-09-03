@@ -8,6 +8,58 @@
   overflow: hidden;
 }
 
+.cjkHome {
+  font-family: var(--font-cjk);
+}
+
+.cjkHome .heroCopy h1,
+.cjkHome .sectionHeading h2,
+.cjkHome .surfaceIntro h2,
+.cjkHome .surfaceCard h3,
+.cjkHome .conceptLead h2,
+.cjkHome .journeyCard h3,
+.cjkHome .conceptList strong {
+  font-family: var(--font-cjk);
+  letter-spacing: 0;
+}
+
+.cjkHome .heroCopy h1 {
+  font-size: clamp(4.2rem, 6.8vw, 7rem);
+  line-height: 1.05;
+}
+
+.cjkHome .heroCopy h1 em,
+.cjkHome .journeyCard > p {
+  font-family: var(--font-cjk);
+  font-style: normal;
+}
+
+.cjkHome .eyebrow,
+.cjkHome .heroActions a,
+.cjkHome .signalBar span,
+.cjkHome .sectionHeading > p,
+.cjkHome .surfaceIntro > p,
+.cjkHome .conceptLead > p,
+.cjkHome .surfaceFooter,
+.cjkHome .conceptLead a,
+.cjkHome .conceptList span,
+.cjkHome .conceptList small {
+  letter-spacing: 0;
+}
+
+.cjkHome .sectionHeading h2,
+.cjkHome .surfaceIntro h2,
+.cjkHome .conceptLead h2 {
+  line-height: 1.15;
+}
+
+@media (max-width: 760px) {
+  .cjkHome .heroCopy h1 {
+    font-size: 3.2rem;
+    line-height: 1.12;
+  }
+}
+
 .heroGrid {
   display: grid;
   grid-template-columns: minmax(0, 1.06fr) minmax(420px, 0.94fr);

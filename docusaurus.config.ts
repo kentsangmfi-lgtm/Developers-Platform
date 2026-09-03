@@ -26,7 +26,12 @@ const config: Config = {
 
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'zh-Hant', 'zh-Hans'],
+    localeConfigs: {
+      en: {label: 'English', htmlLang: 'en'},
+      'zh-Hant': {label: '繁體中文', htmlLang: 'zh-Hant'},
+      'zh-Hans': {label: '简体中文', htmlLang: 'zh-Hans'},
+    },
   },
 
   presets: [
@@ -120,6 +125,10 @@ const config: Config = {
           label: 'Start building',
           position: 'right',
           className: 'navbar__start-link',
+        },
+        {
+          type: 'localeDropdown',
+          position: 'right',
         },
       ],
     },

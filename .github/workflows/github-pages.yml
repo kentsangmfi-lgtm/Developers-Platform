@@ -56,6 +56,9 @@ jobs:
       - name: Type-check site
         run: bun run typecheck
 
+      - name: Validate localized routes
+        run: bun run test:i18n
+
       - name: Build site
         env:
           SITE_URL: ${{ steps.pages.outputs.base_url }}
