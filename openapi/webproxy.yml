@@ -11,7 +11,7 @@ info:
   version: 1.0.0
   title: Web Proxy
 servers:
-  - url: "https://localhost/"
+  - url: https://localhost/
 externalDocs:
   description: FAQ docs
   url: /docs/fx-server/general-rest-api-information
@@ -61,7 +61,7 @@ components:
       schema:
         type: string
         format: YYYY-MM-DD.
-        example: 2023-07-01
+        example: '2023-07-01'
       required: true
       description: Report begin date
     endDate:
@@ -70,7 +70,7 @@ components:
       schema:
         type: string
         format: YYYY-MM-DD.
-        example: 2023-12-31
+        example: '2023-12-31'
       required: true
       description: Report end date
     currency:
@@ -149,15 +149,15 @@ components:
           description: New position margin requirement
         category:
           type: integer
-          description: >
-            Category / Currency Type:
-            * `0` - Forex
-            * `1` - Bullion
-            * `2` - Commodity
-            * `4` - CFDUS
-            * `5` - CFDHK
-            * `6` - Crypto
-          enum: [ 0, 1, 2, 4, 5, 6 ]
+          description: |
+            Category / Currency Type: * `0` - Forex * `1` - Bullion * `2` - Commodity * `4` - CFDUS * `5` - CFDHK * `6` - Crypto
+          enum:
+            - 0
+            - 1
+            - 2
+            - 4
+            - 5
+            - 6
         askAdjust:
           type: number
           description: Adjust of Ask Price
@@ -240,15 +240,15 @@ components:
           description: New position margin requirement
         category:
           type: integer
-          description: >
-            Category / Currency Type:
-            * `0` - Forex
-            * `1` - Bullion
-            * `2` - Commodity
-            * `4` - CFDUS
-            * `5` - CFDHK
-            * `6` - Crypto
-          enum: [ 0, 1, 2, 4, 5, 6 ]
+          description: |
+            Category / Currency Type: * `0` - Forex * `1` - Bullion * `2` - Commodity * `4` - CFDUS * `5` - CFDHK * `6` - Crypto
+          enum:
+            - 0
+            - 1
+            - 2
+            - 4
+            - 5
+            - 6
         tradable:
           type: boolean
           description: Customer Group Contract Enable trade setting
@@ -341,28 +341,39 @@ components:
           type: array
           items:
             type: string
-            enum: [read, trade, withdraw]
+            enum:
+              - read
+              - trade
+              - withdraw
           description: List of permissions granted to this token
-          example: ["read", "trade", "withdraw"]
+          example:
+            - read
+            - trade
+            - withdraw
         expirationDate:
           type: string
           format: date
           nullable: true
           description: Optional date when the token should expire
-          example: "2025-05-31"
+          example: '2025-05-31'
     TokenMetaData:
       type: object
       properties:
         name:
           type: string
           description: Token name
-          example: "ApiKey"
+          example: ApiKey
         permissions:
           type: array
           items:
             type: string
-            enum: [read, trade, withdraw]
-          example: ["read", "trade"]
+            enum:
+              - read
+              - trade
+              - withdraw
+          example:
+            - read
+            - trade
         active:
           type: boolean
           description: Whether the token is active
@@ -372,21 +383,21 @@ components:
           format: date
           nullable: true
           description: Optional date when the token expires
-          example: "2026-12-31"
+          example: '2026-12-31'
         creationDate:
           type: string
           format: date
           description: Timestamp when the token was created
-          example: "2025-04-15 00:00:00 +08:00"
+          example: '2025-04-15 00:00:00 +08:00'
         lastUsedTime:
           type: string
           format: date-time
           description: Timestamp of the last usage of this token
-          example: "2025-04-15 11:00:48 +08:00"
+          example: '2025-04-15 11:00:48 +08:00'
         tokenId:
           type: string
           description: Unique identifier for the token
-          example: "tk_7f4b8e2"
+          example: tk_7f4b8e2
         userName:
           type: string
           description: Username for the token
@@ -460,9 +471,8 @@ components:
           type: string
           format: date-time
           description: Position TranDate
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
     OrderSummary:
       type: object
       required:
@@ -480,7 +490,7 @@ components:
           description: Contract code
         buySell:
           type: boolean
-          description: "true = buy, false = sell"
+          description: true = buy, false = sell
         requestPrice:
           type: number
           format: double
@@ -493,9 +503,8 @@ components:
           type: string
           format: date-time
           description: Order TranDate
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
     PositionTodayResponse:
       type: object
       properties:
@@ -522,7 +531,6 @@ components:
           items:
             $ref: '#/components/schemas/OrderSummary'
           description: Cancelled orders
-
     WorkingOrderResponse:
       type: object
       required:
@@ -537,23 +545,21 @@ components:
         - createDate
         - limitOrStop
       properties:
-        # --- Common Fields ---
         ref:
           type: integer
-          description: "Order Reference ID"
+          description: Order Reference ID
         tranDate:
           type: string
           format: date-time
-          description: "Transaction Date"
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          description: Transaction Date
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         contract:
           type: string
         buyOrSell:
           type: boolean
-          description: "true = buy, false = sell"
-        requestPrice: # rate
+          description: true = buy, false = sell
+        requestPrice:
           type: number
           format: double
         amount:
@@ -561,39 +567,35 @@ components:
           format: double
         ae:
           type: string
-          description: "Account Executive (InputAE)"
+          description: Account Executive (InputAE)
         execDate:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         createDate:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         editAE:
           type: string
         editDate:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         good:
           type: integer
-          description: "0 = Friday, 1 = Cancel, 2 = Day End"
+          description: 0 = Friday, 1 = Cancel, 2 = Day End
         goodTill:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
-        limitOrStop: # stopOrder
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
+        limitOrStop:
           type: boolean
-          description: "true = limit order, false = stop order"
+          description: true = limit order, false = stop order
         rateDecPt:
           type: integer
         liqMethod:
@@ -617,34 +619,30 @@ components:
           format: double
         takeProfitGood:
           type: integer
-          description: "0 = Friday, 1 = Cancel, 2 = Day End"
+          description: 0 = Friday, 1 = Cancel, 2 = Day End
         takeProfitGoodTill:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         stopLossPrice:
           type: number
           format: double
         stopLossGood:
           type: integer
-          description: "0 = Friday, 1 = Cancel, 2 = Day End"
+          description: 0 = Friday, 1 = Cancel, 2 = Day End
         stopLossGoodTill:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
-        # Working Order Only
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         refRate:
           type: number
           format: double
-          description: "Reference Rate (Working Order only)"
+          description: Reference Rate (Working Order only)
         createSysDate:
           type: string
-          description: "System Date string (Working Order only)"
-
+          description: System Date string (Working Order only)
     ExecutedOrderResponse:
       type: object
       required:
@@ -659,23 +657,21 @@ components:
         - createDate
         - limitOrStop
       properties:
-        # --- Common Fields ---
         ref:
           type: integer
-          description: "Order Reference ID"
+          description: Order Reference ID
         tranDate:
           type: string
           format: date-time
-          description: "Transaction Date"
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          description: Transaction Date
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         contract:
           type: string
         buyOrSell:
           type: boolean
-          description: "true = buy, false = sell"
-        requestPrice: #rate
+          description: true = buy, false = sell
+        requestPrice:
           type: number
           format: double
         amount:
@@ -683,39 +679,35 @@ components:
           format: double
         ae:
           type: string
-          description: "Account Executive (EditAE)"
+          description: Account Executive (EditAE)
         execDate:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         createDate:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         editAE:
           type: string
         editDate:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         good:
           type: integer
-          description: "0 = Friday, 1 = Cancel, 2 = Day End"
+          description: 0 = Friday, 1 = Cancel, 2 = Day End
         goodTill:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
-        limitOrStop: # stopOrder
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
+        limitOrStop:
           type: boolean
-          description: "true = limit order, false = stop order"
+          description: true = limit order, false = stop order
         rateDecPt:
           type: integer
         liqMethod:
@@ -739,26 +731,23 @@ components:
           format: double
         takeProfitGood:
           type: integer
-          description: "0 = Friday, 1 = Cancel, 2 = Day End"
+          description: 0 = Friday, 1 = Cancel, 2 = Day End
         takeProfitGoodTill:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         stopLossPrice:
           type: number
           format: double
         stopLossGood:
           type: integer
-          description: "0 = Friday, 1 = Cancel, 2 = Day End"
+          description: 0 = Friday, 1 = Cancel, 2 = Day End
         stopLossGoodTill:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
-        # Executed Order Only
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         executedPrice:
           type: number
           format: double
@@ -767,7 +756,6 @@ components:
           format: double
         executedDealRef:
           type: integer
-
     CancelledOrderResponse:
       type: object
       required:
@@ -782,23 +770,21 @@ components:
         - createDate
         - limitOrStop
       properties:
-        # --- Common Fields ---
         ref:
           type: integer
-          description: "Order Reference ID"
+          description: Order Reference ID
         tranDate:
           type: string
           format: date-time
-          description: "Transaction Date"
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          description: Transaction Date
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         contract:
           type: string
         buyOrSell:
           type: boolean
-          description: "true = buy, false = sell"
-        requestPrice: # rate
+          description: true = buy, false = sell
+        requestPrice:
           type: number
           format: double
         amount:
@@ -806,39 +792,35 @@ components:
           format: double
         ae:
           type: string
-          description: "Account Executive (DeleteAE)"
+          description: Account Executive (DeleteAE)
         execDate:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         createDate:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         editAE:
           type: string
         editDate:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         good:
           type: integer
-          description: "0 = Friday, 1 = Cancel, 2 = Day End"
+          description: 0 = Friday, 1 = Cancel, 2 = Day End
         goodTill:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
-        limitOrStop: # stopOrder
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
+        limitOrStop:
           type: boolean
-          description: "true = limit order, false = stop order"
+          description: true = limit order, false = stop order
         rateDecPt:
           type: integer
         liqMethod:
@@ -863,26 +845,23 @@ components:
           format: double
         takeProfitGood:
           type: integer
-          description: "0 = Friday, 1 = Cancel, 2 = Day End"
+          description: 0 = Friday, 1 = Cancel, 2 = Day End
         takeProfitGoodTill:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         stopLossPrice:
           type: number
           format: double
         stopLossGood:
           type: integer
-          description: "0 = Friday, 1 = Cancel, 2 = Day End"
+          description: 0 = Friday, 1 = Cancel, 2 = Day End
         stopLossGoodTill:
           type: string
           format: date-time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
-
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
     LiquidationSummary:
       type: object
       required:
@@ -918,9 +897,8 @@ components:
           type: string
           format: date-time
           description: Deal tranDate
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
     LiquidationTodayResponse:
       type: object
       properties:
@@ -969,9 +947,8 @@ components:
           type: string
           format: date-time
           description: Buy order executed time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         buyExecutedPrice:
           type: number
           format: double
@@ -983,9 +960,8 @@ components:
           type: string
           format: date-time
           description: Sell order executed time
-          x-field-extra-annotation: |-
-            @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-          example: 2026-04-28T00:00:00+08:00
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd''T''HH:mm:ssXXX")'
+          example: '2026-04-28T00:00:00+08:00'
         sellExecutedPrice:
           type: number
           format: double
@@ -1000,460 +976,6 @@ components:
           type: boolean
           description: Whether buy is a new order
 paths:
-  /deposit:
-    post:
-      summary: Deposit
-      description: Upload deposit record into system with receipt as image
-      operationId: deposit
-      responses:
-        "200":
-          description: successfully processed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  confirmed:
-                    type: boolean
-                  reference:
-                    type: string
-                required:
-                  - confirmed
-                  - reference
-        "400":
-          description: Invalid input
-        "415":
-          description: attached image is not in PNG / JPEG format
-        "413":
-          description: attached image is too large
-        "409":
-          description: |
-            deposit is rejected due to business logic
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: string
-                    description: >
-                      Dictionary:
-                        * -1: Withdrawal Request Failure (Reason: Amount)!
-                        * -2: Withdrawal Request Failure (Reason: Account Type)!
-                        * -3: Invalid Password!
-                        * -4: Not used
-                        * -5: Pay-in limit per transfer is @@1 - @@2; please try again.
-                        * -6: Withdrawal limit per transfer is @@1 - @@2; please try again.
-                        * -7: Exceed deposit transaction limit
-                        * -8: Exceed withdrawal transaction limit
-                        * -9: Exceed accumulate deposit limit
-                        * -10: Exceed accumulate withdrawal limit
-                        * -11: Out Of Withdrawal Service Time
-                        * -12: Non-Trading Hour
-                    enum:
-                      - "-1"
-                      - "-2"
-                      - "-3"
-                      - "-4"
-                      - "-5"
-                      - "-6"
-                      - "-7"
-                      - "-8"
-                      - "-9"
-                      - "-10"
-                      - "-11"
-                      - "-12"
-                      - ""
-                    required:
-                      - code
-      security:
-        - trader: []
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                bankAccount:
-                  type: string
-                amount:
-                  type: string
-                receiptImage:
-                  type: string
-                  format: binary
-              required:
-                - acc
-                - bankAccount
-                - amount
-                - receiptImage
-  /api/countries:
-    get:
-      tags:
-        - Demo Account
-      summary: Get Country option List
-      description: Get Country option List
-      operationId: getCountries
-      responses:
-        "200":
-          description: successfully processed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: string
-                    description: Countries code
-                  en:
-                    type: string
-                    description: Countries English name
-                  zh-cn:
-                    type: string
-                    description: Countries Simplified Chinese name
-                  zh-tw:
-                    type: string
-                    description: Countries Traditional Chinese name
-                required:
-                  - code
-                  - en
-                  - zh-cn
-                  - zh-tw
-        "400":
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  serverMessage:
-                    type: string
-                    description: Error message from server
-                required:
-                  - serverMessage
-      security:
-        - guest: []
-  /api/province:
-    get:
-      tags:
-        - Demo Account
-      summary: Get Province
-      description: Get Province option list
-      operationId: getProvince
-      responses:
-        "200":
-          description: successfully processed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: string
-                    description: Province code
-                  en:
-                    type: string
-                    description: Province English name
-                  zh-cn:
-                    type: string
-                    description: Province Simplified Chinese name
-                  zh-tw:
-                    type: string
-                    description: Province Traditional Chinese name
-                required:
-                  - code
-                  - en
-                  - zh-cn
-                  - zh-tw
-        "400":
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  serverMessage:
-                    type: string
-                    description: Error message from server
-                required:
-                  - serverMessage
-      security:
-        - guest: []
-  /api/challenge:
-    get:
-      summary: Get Captcha Challenge
-      description: Get Captch image and type
-      operationId: getChallenge
-      responses:
-        "200":
-          description: successfully processed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  image:
-                    type: string
-                    description: Captcha image url
-                  type:
-                    type: string
-                    const: text
-                    description: type of Captcha challenge
-                  token:
-                    type: string
-                    description: A token representing challenge
-                required:
-                  - image
-                  - type
-                  - token
-        "400":
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  serverMessage:
-                    type: string
-                    description: Error message from server
-                required:
-                  - serverMessage
-      security:
-        - guest: []
-  /api/registerAccount:
-    post:
-      tags:
-        - Demo Account
-      summary: Register Demo Account
-      description: Post request that allow guest to register demo account
-      operationId: registerDemo
-      responses:
-        "200":
-          description: successfully processed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  acc:
-                    type: string
-                    description: Account ID of registered account
-                  password:
-                    type: string
-                    description: Password of registered account
-                  traderURL:
-                    type: string
-                    description: Trader terminal download url
-                  mf4URL:
-                    type: string
-                    description: mF4 terminal download url
-                required:
-                  - mf4URL
-                  - traderURL
-        "400":
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  description:
-                    type: number
-                    description: Error code
-                required:
-                  - description
-        "403":
-          description: Captcha verification fail
-      security:
-        - guest: []
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                request:
-                  type: object
-                  properties:
-                    type:
-                      type: string
-                      const: demo
-                    title:
-                      type: string
-                      enum: [MR, MRS, MISS, MS]
-                      description: Applicant title
-                    lastNameChinese:
-                      type: string
-                      description: Applicant Chinese last name
-                    firstNameChinese:
-                      type: string
-                      description: Applicant Chinese first name
-                    lastNameEng:
-                      type: string
-                      description: Applicant English last name
-                    firstNameEng:
-                      type: string
-                      description: Applicant English first name
-                    region:
-                      type: string
-                      description: Applicant living region
-                    province:
-                      type: string
-                      description: Applicant living province
-                    address:
-                      type: string
-                      description: Applicant living address
-                    phoneNumber:
-                      type: string
-                      description: Applicant contact number
-                    emailAddress:
-                      type: string
-                      description: Applicant email address
-                    verificationCode:
-                      type: string
-                      description: Verification code from user
-                    challengeToken:
-                      type: string
-                      description: A token representing challenge
-                    lang:
-                      type: string
-                      description: Email language
-                    companyCode:
-                      type: string
-                      description: Company Code
-                  required:
-                    - type
-                    - title
-                    - lastNameChinese
-                    - firstNameChinese
-                    - lastNameEng
-                    - firstNameEng
-                    - region
-                    - phoneNumber
-                    - emailAddress
-                    - verificationCode
-                    - challengeToken
-                    - lang
-                    - companyCode
-              required:
-                - request
-  /api/cancelAccount:
-    post:
-      tags:
-        - Demo Account
-      summary: Cancel Demo Account
-      description: Post request that allow guest to cancel demo account
-      operationId: cancelDemo
-      responses:
-        "200":
-          description: successfully processed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: The cancellation ID from server
-                required:
-                  - id
-        "400":
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errorCode:
-                    type: number
-                    description: Error code
-        "403":
-          description: Captcha verification fail
-      security:
-        - guest: []
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                request:
-                  type: object
-                  properties:
-                    type:
-                      type: string
-                      const: demo
-                    accountNumber:
-                      type: string
-                      description: Account number
-                    emailAddress:
-                      type: string
-                      description: Applicant email address
-                    phoneNumber:
-                      type: string
-                      description: Applicant contact number
-                    cancelReason:
-                      type: string
-                      description: Reason of cancelling account
-                    verificationCode:
-                      type: string
-                      description: Verification code from user
-                    challengeToken:
-                      type: string
-                      description: A token representing challenge
-                    companyCode:
-                      type: string
-                      description: Company Code
-                  required:
-                    - type
-                    - accountNumber
-                    - emailAddress
-                    - phoneNumber
-                    - verificationCode
-                    - challengeToken
-                    - companyCode
-              required:
-                - request
-  /api/forgotPassword:
-    post:
-      tags:
-        - Trader
-      summary: Forgot Live Account Password
-      description: Post request that allow guest to send forgot live account password message
-      operationId: forgotPasswordLive
-      responses:
-        "200":
-          description: successfully processed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: The forget live account password application ID from server
-                required:
-                  - serverMessage
-      security:
-        - guest: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                type:
-                  type: string
-                  const: live
-                user:
-                  type: string
-                  description: User account
-                idNumber:
-                  type: string
-                  description: User ID number
-              required:
-                - type
-                - user
-                - idNumber
   /api/accountInformation:
     get:
       summary: Get Account Information
@@ -1463,7 +985,7 @@ paths:
       tags:
         - Trader
       responses:
-        "200":
+        '200':
           description: successfully processed
           content:
             application/json:
@@ -1484,7 +1006,7 @@ paths:
                     description: User account display currency
                   convOp:
                     type: string
-                    description: >
+                    description: |
                       Dictionary:
                         * D: Stand for divide the convertion rate
                         * other: Stand for mulitiply the convertion rate
@@ -1502,17 +1024,17 @@ paths:
                   - convOp
                   - convRate
                   - settleCurr
-        "401":
+        '401':
           description: Unauthorized
         '429':
           $ref: '#/components/responses/RateLimitedResponse'
   /api/contractSetting:
-    get: 
+    get:
       summary: Get contract setting
       operationId: getContractSetting
       security:
         - trader: []
-      tags: 
+      tags:
         - Trader
       responses:
         '200':
@@ -1536,11 +1058,11 @@ paths:
       tags:
         - Trader
       parameters:
-        - $ref: "#/components/parameters/beginDate"
-        - $ref: "#/components/parameters/endDate"
-        - $ref: "#/components/parameters/currency"
+        - $ref: '#/components/parameters/beginDate'
+        - $ref: '#/components/parameters/endDate'
+        - $ref: '#/components/parameters/currency'
       responses:
-        "200":
+        '200':
           description: successfully processed
           content:
             application/json:
@@ -1554,8 +1076,11 @@ paths:
                       description: Reference number
                     type:
                       type: string
-                      enum: [market, stop, limit]
-                      description: >
+                      enum:
+                        - market
+                        - stop
+                        - limit
+                      description: |
                         Dictionary:
                           * market: Stand for market deal
                           * stop: Stand for stop order
@@ -1571,7 +1096,7 @@ paths:
                       description: Day range commission
                     buySellType:
                       type: boolean
-                      description: >
+                      description: |
                         Dictionary:
                           * true: Stand for buy
                           * false: Stand for sell
@@ -1587,7 +1112,9 @@ paths:
                     newLiq:
                       type: string
                       description: New or Liq
-                      enum: [New, Liq]
+                      enum:
+                        - New
+                        - Liq
                     executionTime:
                       type: string
                       description: Order execution time
@@ -1606,7 +1133,15 @@ paths:
                     trigger:
                       type: string
                       description: Order trigger type
-                      enum: [ORDER, CUTLOSS, DAYEND, AUTO, SEMI, AE, DEALER, MANUAL]
+                      enum:
+                        - ORDER
+                        - CUTLOSS
+                        - DAYEND
+                        - AUTO
+                        - SEMI
+                        - AE
+                        - DEALER
+                        - MANUAL
                   required:
                     - ref
                     - type
@@ -1621,9 +1156,9 @@ paths:
                     - executionTime
                     - appID
                     - trigger
-        "400":
+        '400':
           description: Invalid Input
-        "401":
+        '401':
           description: Unauthorized
         '429':
           $ref: '#/components/responses/RateLimitedResponse'
@@ -1636,11 +1171,11 @@ paths:
       tags:
         - Trader
       parameters:
-        - $ref: "#/components/parameters/beginDate"
-        - $ref: "#/components/parameters/endDate"
-        - $ref: "#/components/parameters/currency"
+        - $ref: '#/components/parameters/beginDate'
+        - $ref: '#/components/parameters/endDate'
+        - $ref: '#/components/parameters/currency'
       responses:
-        "200":
+        '200':
           description: successfully processed
           content:
             application/json:
@@ -1662,10 +1197,10 @@ paths:
                       type: string
                       description: Original transaction date
                       format: YYYY-MM-DD.
-                      example: 2023-11-01
+                      example: '2023-11-01'
                     liqBuySellType:
                       type: boolean
-                      description: >
+                      description: |
                         Dictionary:
                           * true: Stand for buy
                           * false: Stand for sell
@@ -1679,44 +1214,44 @@ paths:
                       type: string
                       description: Liquidated transaction date
                       format: YYYY-MM-DD.
-                      example: 2023-11-01
+                      example: '2023-11-01'
                     closeRate:
                       type: number
                       description: Closed Rate
                     PL:
                       type: number
                       description: Profit/Loss
-                    liqTranDateTime: 
+                    liqTranDateTime:
                       type: string
                       description: System date
                       format: ISO 8601
-                      example: 2024-01-18T16:45:31.537Z
-                    origTranDateTime: 
+                      example: '2024-01-18T16:45:31.537Z'
+                    origTranDateTime:
                       type: string
                       description: System date
                       format: ISO 8601
-                      example: 2024-01-18T16:50:31.537Z
+                      example: '2024-01-18T16:50:31.537Z'
                     storage:
                       type: number
                       description: Storage fee per lot
-                      example: 10.0
+                      example: 10
                     commission:
                       type: number
                       description: commission fee
-                      example: 10.0
+                      example: 10
                     floatInterest:
                       type: number
                       description: accumulated amount of interest
-                      example: 10.0
+                      example: 10
                     tpRate:
                       oneOf:
                         - type: number
-                        - type: "null"
+                        - type: 'null'
                       description: take profit rate
                     slRate:
                       oneOf:
                         - type: number
-                        - type: "null"
+                        - type: 'null'
                       description: stop loss rate
                   required:
                     - rateDecPt
@@ -1738,9 +1273,9 @@ paths:
                     - floatInterest
                     - tpRate
                     - slRate
-        "400":
+        '400':
           description: Invalid Input
-        "401":
+        '401':
           description: Unauthorized
         '429':
           $ref: '#/components/responses/RateLimitedResponse'
@@ -1753,10 +1288,10 @@ paths:
       tags:
         - Trader
       parameters:
-        - $ref: "#/components/parameters/endDate"
-        - $ref: "#/components/parameters/currency"
+        - $ref: '#/components/parameters/endDate'
+        - $ref: '#/components/parameters/currency'
       responses:
-        "200":
+        '200':
           description: successfully processed
           content:
             application/json:
@@ -1770,7 +1305,7 @@ paths:
                       description: Reference number
                     buySellType:
                       type: boolean
-                      description: >
+                      description: |
                         Dictionary:
                           * true: Stand for buy
                           * false: Stand for sell
@@ -1829,9 +1364,9 @@ paths:
                     - openTime
                     - commission
                     - storage
-        "400":
+        '400':
           description: Invalid Input
-        "401":
+        '401':
           description: Unauthorized
         '429':
           $ref: '#/components/responses/RateLimitedResponse'
@@ -1844,11 +1379,11 @@ paths:
       tags:
         - Trader
       parameters:
-        - $ref: "#/components/parameters/beginDate"
-        - $ref: "#/components/parameters/endDate"
-        - $ref: "#/components/parameters/currency"
+        - $ref: '#/components/parameters/beginDate'
+        - $ref: '#/components/parameters/endDate'
+        - $ref: '#/components/parameters/currency'
       responses:
-        "200":
+        '200':
           description: successfully processed
           content:
             application/json:
@@ -1869,8 +1404,12 @@ paths:
                       description: Remark
                     status:
                       type: string
-                      enum: [Confirmed, Rejected, Pending, Verified]
-                      description: >
+                      enum:
+                        - Confirmed
+                        - Rejected
+                        - Pending
+                        - Verified
+                      description: |
                         Dictionary:
                           * Confirmed: Stand for deposit success
                           * Rejected: Stand for deposit fail
@@ -1885,7 +1424,7 @@ paths:
                     systemTime:
                       type: string
                       format: ISO 8601
-                      example: 2024-01-18T16:50:31.537Z
+                      example: '2024-01-18T16:50:31.537Z'
                   required:
                     - tranDate
                     - ref
@@ -1894,9 +1433,9 @@ paths:
                     - linkType
                     - amount
                     - systemTime
-        "400":
+        '400':
           description: Invalid Input
-        "401":
+        '401':
           description: Unauthorized
         '429':
           $ref: '#/components/responses/RateLimitedResponse'
@@ -1905,7 +1444,7 @@ paths:
       summary: Get Last Consecutive Trade Information
       operationId: getLastConsecutiveTrade
       security:
-        - trader: [ ]
+        - trader: []
       tags:
         - Trader
       responses:
@@ -1917,7 +1456,6 @@ paths:
                 $ref: '#/components/schemas/LastConsecutiveObject'
         '429':
           $ref: '#/components/responses/RateLimitedResponse'
-
   /api/statementSummary:
     get:
       summary: Get Statement Summary
@@ -1927,11 +1465,11 @@ paths:
       tags:
         - Trader
       parameters:
-        - $ref: "#/components/parameters/beginDate"
-        - $ref: "#/components/parameters/endDate"
-        - $ref: "#/components/parameters/currency"
+        - $ref: '#/components/parameters/beginDate'
+        - $ref: '#/components/parameters/endDate'
+        - $ref: '#/components/parameters/currency'
       responses:
-        "200":
+        '200':
           description: successfully processed
           content:
             application/json:
@@ -1995,7 +1533,6 @@ paths:
                   usableMargin:
                     type: number
                     description: Usable margin
-
                 required:
                   - lastBalanceUS
                   - dayPL
@@ -2016,477 +1553,12 @@ paths:
                   - storage
                   - equity
                   - usableMargin
-        "400":
+        '400':
           description: Invalid Input
-        "401":
-          description: Unauthorized
-        '429':
-          $ref: '#/components/responses/RateLimitedResponse'
-  /web/mF4/download_page_{lang}.html:
-    get:
-      summary: Get mF4 Download page
-      operationId: downloadmF4Page
-      tags:
-        - WebUI
-      security:
-        - guest: []
-      parameters:
-        - $ref: "#/components/parameters/lang"
-      responses:
-        "200":
-          description: successfully processed
-          content:
-            text/html:
-              schema:
-                type: string
-                description: Webpage to download mF4 application
-        "404":
-          description: Page not found
-  /api/news/:
-    summary: List news
-    get:
-      summary: Get news list
-      tags:
-        - News
-      description: "List news heading and brief description"
-      operationId: "getNewsList"
-      security:
-        - trader: []
-      parameters:
-        - name: lang
-          in: query
-          description: language of news to retrieve
-          required: false
-          schema:
-            type: string
-            description: >
-              language of news to retrieve
-              Dictionary:
-                * -zh-tw: Traditional Chinese
-                * -zh-cn: Simplified Chinese
-                * -en: English
-            enum:
-              - 'zh-tw'
-              - 'zh-cn'
-              - 'en'
-            default: 'en'
-        - name: reportGroup
-          in: query
-          description: Name of the reportGroup
-          required: false
-          schema:
-            type: string
-        - name: start
-          in: query
-          description: Starting index of the results, if not provided return latest 50 result
-          required: false
-          schema:
-            type: integer
-            minimum: 1
-        - name: size
-          in: query
-          description: Number of results to return, if not provided return latest 50 result
-          required: false
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 50
-      responses:
-        200:
-          description: A list of news header and briefings
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    newsId:
-                      type: string
-                      description: unique news id
-                      example: 1
-                    header:
-                      type: string
-                      description: news header
-                      example: "再往上衝！看漲金價的三大理由"
-                    date:
-                      type: string
-                      description: news publish or latest update date, in iso date format
-                      example: "2023-08-24T08:23:32Z"
-                    content:
-                      type: string
-                      description: news content, in html format fetching full length of news
-                      example: "據美國財政部宣布發行 1,030 億美元公債，推動長期公債收益率觸及九個月高點，但上週五在可能影響美國利率路徑的關鍵就業報告公布前，壓抑美元走勢，並據路透調查，受惠於出口強勁，日本 4-6 月國內生產總值 (GDP) ..."
-        400:
-          description: invalid query parameters input
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errCode:
-                    enum:
-                      - "103"
-                      - "104"
-                      - "105"
-                    description: >
-                      3-digit news related error code
-                      Dictionary:
-                        * -103: Invalid language input
-                        * -104: Invalid start input
-                        * -105: Invalid size input
-                    example: "103"
-        401:
-          description: Unauthorized
-        404:
-          description: report group not exist
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errCode:
-                    type: string
-                    description: >
-                      3-digit news related error code
-                      Dictionary:
-                        * -101: reportGroup does not exist
-                    enum:
-                      - "101"
-                    example: "101"
-        '429':
-          $ref: '#/components/responses/RateLimitedResponse'
-        default:
-          description: Default error sample response
-  /api/news/{newsId}:
-    get:
-      tags:
-        - News
-      summary: "Get one news"
-      description: "Get one news"
-      operationId: "getSingleNews"
-      security:
-        - trader: []
-      parameters:
-        - name: newsId
-          in: path
-          description: ID of the company to retrieve
-          required: true
-          schema:
-            type: integer
-            minimum: 1
-        - name: lang
-          in: query
-          description: language of news to retrieve
-          required: false
-          schema:
-            type: string
-            description: >
-              language of news to retrieve
-              Dictionary:
-                * -zh-tw: Traditional Chinese
-                * -zh-cn: Simplified Chinese
-                * -en: English
-            enum:
-              - 'zh-tw'
-              - 'zh-cn'
-              - 'en'
-            default: 'en'
-      responses:
-        200:
-          description: A list of news header and briefings
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  newsId:
-                    type: string
-                    description: unique news id
-                    example: 1
-                  header:
-                    type: string
-                    description: news header
-                    example: "再往上衝！看漲金價的三大理由"
-                  date:
-                    type: string
-                    description: news publish or latest update date, in iso date format
-                    example: "2023-08-24T08:23:32Z"
-                  content:
-                    type: string
-                    description: news content, in html format fetching full length of news
-                    example: "據美國財政部宣布發行 1,030 億美元公債，推動長期公債收益率觸及九個月高點，但上週五在可能影響美國利率路徑的關鍵就業報告公布前，壓抑美元走勢，並據路透調查，受惠於出口強勁，日本 4-6 月國內生產總值 (GDP) ..."
-        400:
-          description: invalid lang input
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errCode:
-                    enum:
-                      - "103"
-                    description: >
-                      3-digit news related error code
-                      Dictionary:
-                        * -103: Invalid language input
-                    example: "103"
-        401:
-          description: Unauthorized
-        404:
-          description: newsId does not exist
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errCode:
-                    enum:
-                      - "102"
-                    description: >
-                      3-digit news related error code
-                      Dictionary:
-                        * -102: newsId does not exist
-                    example: "102"
-        '429':
-          $ref: '#/components/responses/RateLimitedResponse'
-  /{lang}/news-list/:
-    get:
-      tags:
-        - News
-      summary: "News list webview"
-      description: "News list webview"
-      operationId: "getNewsListWebview"
-      parameters:
-        - name: lang
-          in: path
-          description: language of news to retrieve
-          required: true
-          schema:
-            type: string
-            description: >
-              language of news to retrieve
-              Dictionary:
-                * -zh-tw: Traditional Chinese
-                * -zh-cn: Simplified Chinese
-                * -en: English
-            enum:
-              - 'zh-tw'
-              - 'zh-cn'
-              - 'en'
-        - name: theme
-          in: query
-          description: Theme of the UI
-          required: false
-          schema:
-            type: string
-            description: >
-              Theme of the news UI
-              Dictionary:
-                * -light: Light theme for trader pro
-                * -dark: Dark theme for webtrader
-            enum:
-              - 'light'
-              - 'dark'
-            default: 'light'
-        - name: reportGroup
-          in: query
-          description: report group of news to retrieve
-          required: true
-          schema:
-            type: string
-            enum:
-              - PRODUCTION
-              - DEMOPLATFM
-        - name: token
-          in: query
-          description: JWT token that used to authenticate the user in webproxy
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: A list of news content
-          content:
-            html:
-              schema:
-                type: string
-                example: "<html><body><h1>News list</h1></body></html>"
-        400:
-          description: invalid lang or theme input
-        401:
-          description: Unauthorized
-        404:
-          description: News not found
-  /{lang}/news/:
-    get:
-      tags:
-        - News
-      summary: "News content webview"
-      description: "News content webview"
-      operationId: "getNewsContentWebview"
-      parameters:
-        - name: lang
-          in: path
-          description: language of news to retrieve
-          required: true
-          schema:
-            type: string
-            description: >
-              language of news to retrieve
-              Dictionary:
-                * -zh-tw: Traditional Chinese
-                * -zh-cn: Simplified Chinese
-                * -en: English
-            enum:
-              - 'zh-tw'
-              - 'zh-cn'
-              - 'en'
-        - name: theme
-          in: query
-          description: Theme of the UI
-          required: false
-          schema:
-            type: string
-            description: >
-              Theme of the news UI
-              Dictionary:
-                * -light: Light theme for trader pro
-                * -dark: Dark theme for webtrader
-            enum:
-              - 'light'
-              - 'dark'
-            default: 'light'
-        - name: id
-          in: query
-          description: unique id of the news
-          required: true
-          schema:
-            type: string
-        - name: token
-          in: query
-          description: JWT token that used to authenticate the user in webproxy
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: single news content
-          content:
-            html:
-              schema:
-                type: string
-                example: "<html><body><h1>News list</h1></body></html>"
-        400:
-          description: invalid lang or theme input
-        401:
-          description: Unauthorized
-        404:
-          description: News not found
-  /api/reportGroup/{reportGroup}/buySellRatio/{contract}:
-    get:
-      summary: "Buy Sell Ratio"
-      description: Buy sell ratio for trader sentiment
-      operationId: getBuySellRatioByReportGroup
-      tags:
-        - Report Group
-      parameters:
-        - name: reportGroup
-          in: path
-          description: Name of the reportGroup
-          required: true
-          schema:
-            type: string
-        - name: contract
-          in: path
-          description: Contract code
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  buyRatio:
-                    type: number
-                    description: Ratio of buy. BuyAmount / (BuyAmount + SellAmount) * 100), precise to 2 decimal places
-                    example: 60.18
-                  sellRatio:
-                    type: number
-                    description: Ratio of sell. SellAmount / (BuyAmount + SellAmount) * 100), precise to 2 decimal places
-                    example: 39.82
-        404:
-          description: report group not found / contract not found
-  /api/reportGroup/{reportGroup}/contractSetting:
-    get:
-      summary: Report group contract setting
-      description: Contract setting for guest
-      operationId: getReportGroupContractSetting
-      tags:
-        - Report Group
-      parameters:
-        - name: reportGroup
-          in: path
-          description: Name of the reportGroup
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: successfully processed
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/contractSummary'
         '401':
           description: Unauthorized
-  /api/reportGroup/{reportGroup}/contractList:
-    get:
-      summary: Report group contract list
-      description: Contract list for guest
-      operationId: getReportGroupContractList
-      tags:
-        - Report Group
-      parameters:
-        - name: reportGroup
-          in: path
-          description: Name of the reportGroup
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                description: list of contract code
-                items:
-                  type: string
-        404:
-          description: report group not found
-  /api/companySetting:
-    get: 
-      summary: Company Setting (Company Name)
-      description: Company setting (So far company name only)
-      operationId: getCompanySetting
-      responses:
-        200: 
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                 companyName:
-                  type: string
+        '429':
+          $ref: '#/components/responses/RateLimitedResponse'
   /api/contractSetting/{contractCode}/tradingHour:
     get:
       summary: Contract setting trading hour
@@ -2500,7 +1572,7 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        '200':
           description: Successful operation
           content:
             application/json:
@@ -2515,16 +1587,16 @@ paths:
                     weekday:
                       type: integer
                       format: int32
-                      description: >
-                        Day of the week:
-                        * `1` - Sunday
-                        * `2` - Monday
-                        * `3` - Tuesday
-                        * `4` - Wednesday
-                        * `5` - Thursday
-                        * `6` - Friday
-                        * `7` - Saturday
-                      enum: [ 1, 2, 3, 4, 5, 6, 7 ]
+                      description: |
+                        Day of the week: * `1` - Sunday * `2` - Monday * `3` - Tuesday * `4` - Wednesday * `5` - Thursday * `6` - Friday * `7` - Saturday
+                      enum:
+                        - 1
+                        - 2
+                        - 3
+                        - 4
+                        - 5
+                        - 6
+                        - 7
                     startHour:
                       type: integer
                       description: Start hour
@@ -2552,334 +1624,8 @@ paths:
                     - startMinute
                     - endHour
                     - endMinute
-        404:
+        '404':
           description: Contract code not found
-  /api/session:
-    post:
-      summary: Create a new session
-      description: Create a new session
-      operationId: postSession
-      tags:
-        - Trader
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                checks:
-                  $ref: '#/components/schemas/sessionChecks'
-                userAgent:
-                  type: object
-                  properties:
-                    fingerprintId:
-                      type: string
-                    ip:
-                      type: string
-      responses:
-        200:
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  sessionId:
-                    type: string
-                  sessionToken:
-                    type: string
-                  challenge:
-                    type: object
-                    properties:
-                      otpSms:
-                        type: string
-                        description: OTP is required. Sending via SMS. Return prefix code of otp.
-                      otpEmail:
-                        type: string
-                        description: OTP is required. Sending via Email. Return prefix code of otp.
-                  isFix:
-                    type: boolean
-                  reportGroupId:
-                    type: integer
-                    description: Report Group Id
-                  reportGroup:
-                    type: string
-                    description: Report Group Name
-                required:
-                  - sessionId
-                  - sessionToken
-                  - isFix
-                  - reportGroupId
-                  - reportGroup
-  /api/session/{sessionId}:
-    patch:
-      summary: Update an existing session with new information.
-      description: Update an existing session with new information.
-      operationId: patchSession
-      tags:
-        - Trader
-      parameters:
-        - name: sessionId
-          in: path
-          description: Session Token to update
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                checks:
-                  $ref: '#/components/schemas/sessionChecks'
-      responses:
-        200:
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                properties:
-                  sessionToken:
-                    type: string
-                  challenge:
-                    type: object
-                    properties:
-                      otpSms:
-                        type: string
-                        description: OTP is required. Sending via SMS. Return prefix code of otp.
-                      otpEmail:
-                        type: string
-                        description: OTP is required. Sending via Email. Return prefix code of otp.
-                  isFix:
-                    type: boolean
-                  reportGroupId:
-                    type: integer
-                    description: Report Group Id
-                  reportGroup:
-                    type: string
-                    description: Report Group Name
-                required:
-                  - sessionToken
-                  - isFix
-                  - reportGroupId
-                  - reportGroup
-  /api/tokens:
-    get:
-      summary: Get a list of all token metadata
-      description: Get a list of all token metadata
-      operationId: getAllTokens
-      tags:
-        - Tokens
-      responses:
-        200:
-          description: A list of token metadata
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TokenMetaData'
-        401:
-          description: Unauthorized
-        '429':
-          $ref: '#/components/responses/RateLimitedResponse'
-      security:
-        - trader: []
-
-  /api/tokens/new:
-    post:
-      summary: Generate a new api key
-      description: Generate a new api key
-      operationId: generateToken
-      tags:
-        - Tokens
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TokenRequest'
-      responses:
-        201:
-          description: Token created
-          content:
-            text/plain:
-              schema:
-                type: string
-                description: The newly generated token string
-                example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-        400:
-          description: Validation error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: array
-                    items:
-                      type: string
-                      enum:
-                        - "name_empty"
-                        - "name_too_long"
-                        - "duplicate_name"
-                        - "key_limit_exceeded"
-                        - "previous_expiration_date"
-                        - "permission_empty"
-                    exmaple: ["name_too_long", "permission_empty"]
-                  message:
-                    type: string
-                    example: "Token request invalid"
-        401:
-          description: Unauthorized
-        '429':
-          $ref: '#/components/responses/RateLimitedResponse'
-      security:
-        - trader: []
-
-  /api/tokens/{tokenId}/edit:
-    put:
-      summary: Edit an existing token and regenerate it
-      description: Edit an existing token and regenerate it
-      operationId: editToken
-      tags:
-        - Tokens
-      parameters:
-        - name: tokenId
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TokenRequest'
-      responses:
-        200:
-          description: Token successfully updated
-          content:
-            application/json:
-              schema:
-                type: string
-                description: The newly regenerated token string
-                example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-        401:
-          description: Unauthorized
-        '429':
-          $ref: '#/components/responses/RateLimitedResponse'
-      security:
-        - trader: []
-
-  /api/tokens/{tokenId}/status:
-    patch:
-      summary: Change token status
-      description: Activates or deactivates a token
-      operationId: changeTokenStatus
-      tags:
-        - Tokens
-      parameters:
-        - name: tokenId
-          in: path
-          required: true
-          schema:
-            type: string
-          description: ID of the token to update
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - isActive
-              properties:
-                isActive:
-                  type: boolean
-                  description: Whether the token should be active
-      responses:
-        200:
-          description: Token status successfully updated
-          content:
-            application/json:
-              schema:
-                type: string
-        400:
-          description: Token not exist
-          content:
-            application/json:
-              schema:
-                type: string
-        401:
-          description: Unauthorized
-        '429':
-          $ref: '#/components/responses/RateLimitedResponse'
-      security:
-        - trader: []
-
-  /api/tokens/config:
-    get:
-      summary: List of key checking config
-      description: List of key checking config
-      operationId: getTokenConfig
-      tags:
-        - Tokens
-      responses:
-        200:
-          description: Key config list
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  delete_check:
-                    type: boolean
-                  max_key_amount:
-                    type: integer
-        401:
-          description: Unauthorized
-        '429':
-          $ref: '#/components/responses/RateLimitedResponse'
-      security:
-        - trader: []
-
-  /api/tokens/{tokenId}:
-    delete:
-      summary: Delete token
-      description: Delete token
-      operationId: deleteToken
-      tags:
-        - Tokens
-      parameters:
-        - name: tokenId
-          in: path
-          required: true
-          schema:
-            type: string
-          description: ID of the token to delete
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                password:
-                  type: string
-      responses:
-        204:
-          description: Token successfully deleted
-        400:
-          description: Invalid Password
-        401:
-          description: Unauthorized
-        404:
-          description: Token Not Found
-        '429':
-          $ref: '#/components/responses/RateLimitedResponse'
-      security:
-        - trader: []
   /api/tokens/auth:
     post:
       summary: Exchange API key for access token
@@ -2890,7 +1636,7 @@ paths:
       security:
         - ApiKeyAuth: []
       responses:
-        200:
+        '200':
           description: Token exchange successful
           content:
             application/json:
@@ -2905,7 +1651,7 @@ paths:
                 required:
                   - access_token
                   - expires_in
-        401:
+        '401':
           description: Unauthorized
   /api/tokens/traderConfig:
     get:
@@ -2917,7 +1663,7 @@ paths:
       security:
         - trader: []
       responses:
-        200:
+        '200':
           description: Get trade config successful
           content:
             application/json:
@@ -2932,7 +1678,11 @@ paths:
                     type: string
                   reportGroupId:
                     type: integer
-        401:
+                  fxServerApiEndpoint:
+                    type: string
+                  chartServerApiEndpoint:
+                    type: string
+        '401':
           description: Unauthorized
         '429':
           $ref: '#/components/responses/RateLimitedResponse'
@@ -3045,13 +1795,12 @@ paths:
                   - $ref: '#/components/schemas/WorkingOrderResponse'
                   - $ref: '#/components/schemas/ExecutedOrderResponse'
                   - $ref: '#/components/schemas/CancelledOrderResponse'
-        '429':
-          $ref: '#/components/responses/RateLimitedResponse'
-
         '400':
           description: ref / type is empty or type not in 1 / 2 / 3
         '401':
           description: Unauthorized
+        '429':
+          $ref: '#/components/responses/RateLimitedResponse'
         '500':
           description: Internal Server Error
   /api/getLiquidationToday:

@@ -5,53 +5,6 @@ info:
   version: 1.0.0
   title: Chart Server
 paths:
-  /api/instrument/{instrument}/tick:
-    put:
-      summary: Modify tick
-      description: Modify tick
-      operationId: putInstrumentTick
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                date:
-                  type: string
-                  description: format yyyy-MM-dd HH:mm
-                  examples:
-                    - 1990-01-01 01:01
-                open:
-                  type: number
-                high:
-                  type: number
-                low:
-                  type: number
-                close:
-                  type: number
-                scale:
-                  type: integer
-                  description: Scale. check scale mapping in document
-              required:
-                - date
-                - open
-                - high
-                - low
-                - close
-                - scale
-      responses:
-        '200':
-          description: Successful operation
-        '404':
-          description: Instrument not found / scale not found
-        '400':
-          description: Invalid date format / Invalid input
-        '401':
-          description: Unauthorized. Token is invalid.
-      security:
-        - dealer: []
-        - ftsweb: []
   /api/instrument/{instrument}/live-statistics:
     get:
       summary: Get instrument live statistics
@@ -66,13 +19,13 @@ paths:
                 type: object
                 properties:
                   5min:
-                    "$ref": "#/components/schemas/liveStatistics"
+                    $ref: '#/components/schemas/liveStatistics'
                   60min:
-                    "$ref": "#/components/schemas/liveStatistics"
+                    $ref: '#/components/schemas/liveStatistics'
                   1day:
-                    "$ref": "#/components/schemas/liveStatistics"
+                    $ref: '#/components/schemas/liveStatistics'
                   52week:
-                    "$ref": "#/components/schemas/liveStatistics"
+                    $ref: '#/components/schemas/liveStatistics'
         '400':
           description: Invalid instrument name / Unsupported time series type
   /api/instrumentnames:
@@ -122,7 +75,7 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/chartBarModel"
+                  $ref: '#/components/schemas/chartBarModel'
         '400':
           description: Invalid instrument name / Invalid period type
   /api/instrument/{instrument}/getLastBar/{periodType}:
@@ -153,8 +106,6 @@ paths:
                     type: number
         '400':
           description: Invalid instrument name / Invalid period type
-
-
 components:
   securitySchemes:
     dealer:
