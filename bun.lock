@@ -22,7 +22,6 @@
         "@docusaurus/types": "3.10.2",
         "@types/bun": "^1.2.22",
         "@types/react": "^19.1.13",
-        "js-yaml": "5.2.1",
         "markdownlint-cli2": "^0.23.1",
         "typescript": "~6.0.2",
       },
