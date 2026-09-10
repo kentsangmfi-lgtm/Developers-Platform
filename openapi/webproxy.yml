@@ -1006,7 +1006,6 @@ paths:
         - Demo Account
       summary: Get Country option List
       description: Get Country option List
-      x-internal: true
       operationId: getCountries
       responses:
         "200":
@@ -1053,7 +1052,6 @@ paths:
         - Demo Account
       summary: Get Province
       description: Get Province option list
-      x-internal: true
       operationId: getProvince
       responses:
         "200":
@@ -1096,9 +1094,10 @@ paths:
         - guest: []
   /api/challenge:
     get:
+      tags:
+        - Demo Account
       summary: Get Captcha Challenge
       description: Get Captch image and type
-      x-internal: true
       operationId: getChallenge
       responses:
         "200":
@@ -1142,7 +1141,6 @@ paths:
         - Demo Account
       summary: Register Demo Account
       description: Post request that allow guest to register demo account
-      x-internal: true
       operationId: registerDemo
       responses:
         "200":
@@ -1260,7 +1258,6 @@ paths:
         - Demo Account
       summary: Cancel Demo Account
       description: Post request that allow guest to cancel demo account
-      x-internal: true
       operationId: cancelDemo
       responses:
         "200":
@@ -1336,9 +1333,9 @@ paths:
     post:
       tags:
         - Trader
+        - Account Recovery
       summary: Forgot Live Account Password
       description: Post request that allow guest to send forgot live account password message
-      x-internal: true
       operationId: forgotPasswordLive
       responses:
         "200":
@@ -1382,6 +1379,7 @@ paths:
         - trader: []
       tags:
         - Trader
+        - Account
       responses:
         "200":
           description: successfully processed
@@ -1427,13 +1425,14 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimitedResponse'
   /api/contractSetting:
-    get:
+    get: 
       summary: Get contract setting
       operationId: getContractSetting
       security:
         - trader: []
-      tags:
+      tags: 
         - Trader
+        - Configuration
       responses:
         '200':
           description: successfully processed
@@ -1455,6 +1454,7 @@ paths:
         - trader: []
       tags:
         - Trader
+        - Orders
       parameters:
         - $ref: "#/components/parameters/beginDate"
         - $ref: "#/components/parameters/endDate"
@@ -1555,6 +1555,7 @@ paths:
         - trader: []
       tags:
         - Trader
+        - Trade History
       parameters:
         - $ref: "#/components/parameters/beginDate"
         - $ref: "#/components/parameters/endDate"
@@ -1606,12 +1607,12 @@ paths:
                     PL:
                       type: number
                       description: Profit/Loss
-                    liqTranDateTime:
+                    liqTranDateTime: 
                       type: string
                       description: System date
                       format: ISO 8601
                       example: 2024-01-18T16:45:31.537Z
-                    origTranDateTime:
+                    origTranDateTime: 
                       type: string
                       description: System date
                       format: ISO 8601
@@ -1672,6 +1673,7 @@ paths:
         - trader: []
       tags:
         - Trader
+        - Positions
       parameters:
         - $ref: "#/components/parameters/endDate"
         - $ref: "#/components/parameters/currency"
@@ -1763,6 +1765,7 @@ paths:
         - trader: []
       tags:
         - Trader
+        - Account
       parameters:
         - $ref: "#/components/parameters/beginDate"
         - $ref: "#/components/parameters/endDate"
@@ -1828,6 +1831,7 @@ paths:
         - trader: [ ]
       tags:
         - Trader
+        - Trade History
       responses:
         '200':
           description: successfully processed
@@ -1846,6 +1850,7 @@ paths:
         - trader: []
       tags:
         - Trader
+        - Trade History
       parameters:
         - $ref: "#/components/parameters/beginDate"
         - $ref: "#/components/parameters/endDate"
@@ -1945,10 +1950,9 @@ paths:
   /web/mF4/download_page_{lang}.html:
     get:
       summary: Get mF4 Download page
-      x-internal: true
       operationId: downloadmF4Page
       tags:
-        - WebUI
+        - Web UI
       security:
         - guest: []
       parameters:
@@ -1967,7 +1971,6 @@ paths:
     get:
       summary: "Buy Sell Ratio"
       description: Buy sell ratio for trader sentiment
-      x-internal: true
       operationId: getBuySellRatioByReportGroup
       tags:
         - Report Group
@@ -2006,7 +2009,6 @@ paths:
     get:
       summary: Report group contract setting
       description: Contract setting for guest
-      x-internal: true
       operationId: getReportGroupContractSetting
       tags:
         - Report Group
@@ -2032,7 +2034,6 @@ paths:
     get:
       summary: Report group contract list
       description: Contract list for guest
-      x-internal: true
       operationId: getReportGroupContractList
       tags:
         - Report Group
@@ -2056,23 +2057,26 @@ paths:
         404:
           description: report group not found
   /api/companySetting:
-    get:
+    get: 
+      tags:
+        - Company Settings
       summary: Company Setting (Company Name)
       description: Company setting (So far company name only)
-      x-internal: true
       operationId: getCompanySetting
       responses:
-        200:
+        200: 
           description: Successful operation
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  companyName:
-                    type: string
+                 companyName:
+                  type: string
   /api/contractSetting/{contractCode}/tradingHour:
     get:
+      tags:
+        - Configuration
       summary: Contract setting trading hour
       description: Contract setting trading hour
       operationId: getContractSettingTradingHour
@@ -2142,10 +2146,10 @@ paths:
     post:
       summary: Create a new session
       description: Create a new session
-      x-internal: true
       operationId: postSession
       tags:
         - Trader
+        - Session
       requestBody:
         content:
           application/json:
@@ -2200,10 +2204,10 @@ paths:
     patch:
       summary: Update an existing session with new information.
       description: Update an existing session with new information.
-      x-internal: true
       operationId: patchSession
       tags:
         - Trader
+        - Session
       parameters:
         - name: sessionId
           in: path
@@ -2254,10 +2258,9 @@ paths:
     get:
       summary: Get a list of all token metadata
       description: Get a list of all token metadata
-      x-internal: true
       operationId: getAllTokens
       tags:
-        - Tokens
+        - Token Management
       responses:
         200:
           description: A list of token metadata
@@ -2278,10 +2281,9 @@ paths:
     post:
       summary: Generate a new api key
       description: Generate a new api key
-      x-internal: true
       operationId: generateToken
       tags:
-        - Tokens
+        - Token Management
       requestBody:
         required: true
         content:
@@ -2330,10 +2332,9 @@ paths:
     put:
       summary: Edit an existing token and regenerate it
       description: Edit an existing token and regenerate it
-      x-internal: true
       operationId: editToken
       tags:
-        - Tokens
+        - Token Management
       parameters:
         - name: tokenId
           in: path
@@ -2366,10 +2367,9 @@ paths:
     patch:
       summary: Change token status
       description: Activates or deactivates a token
-      x-internal: true
       operationId: changeTokenStatus
       tags:
-        - Tokens
+        - Token Management
       parameters:
         - name: tokenId
           in: path
@@ -2413,10 +2413,9 @@ paths:
     get:
       summary: List of key checking config
       description: List of key checking config
-      x-internal: true
       operationId: getTokenConfig
       tags:
-        - Tokens
+        - Token Management
       responses:
         200:
           description: Key config list
@@ -2440,10 +2439,9 @@ paths:
     delete:
       summary: Delete token
       description: Delete token
-      x-internal: true
       operationId: deleteToken
       tags:
-        - Tokens
+        - Token Management
       parameters:
         - name: tokenId
           in: path
@@ -2478,7 +2476,7 @@ paths:
       description: Exchange API key for access token
       operationId: exchangeToken
       tags:
-        - Tokens
+        - Authentication
       security:
         - ApiKeyAuth: []
       responses:
@@ -2505,7 +2503,7 @@ paths:
       description: Get Trade Config
       operationId: getTradeConfig
       tags:
-        - Tokens
+        - Configuration
       security:
         - trader: []
       responses:
@@ -2539,6 +2537,7 @@ paths:
       operationId: traderGetContractSetting
       tags:
         - Trader
+        - Configuration
       security:
         - trader: []
       parameters:
@@ -2572,6 +2571,7 @@ paths:
       operationId: traderGetPositionToday
       tags:
         - Trader
+        - Positions
       security:
         - trader: []
       responses:
@@ -2594,6 +2594,7 @@ paths:
       operationId: traderGetOrderToday
       tags:
         - Trader
+        - Orders
       security:
         - trader: []
       responses:
@@ -2616,6 +2617,7 @@ paths:
       operationId: traderGetOrderDetail
       tags:
         - Trader
+        - Orders
       security:
         - trader: []
       parameters:
@@ -2657,6 +2659,7 @@ paths:
       operationId: traderGetLiquidationToday
       tags:
         - Trader
+        - Trade History
       security:
         - trader: []
       responses:
@@ -2679,6 +2682,7 @@ paths:
       operationId: traderGetLiquidationDetail
       tags:
         - Trader
+        - Trade History
       security:
         - trader: []
       parameters:
