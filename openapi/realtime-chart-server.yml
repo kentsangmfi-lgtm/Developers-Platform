@@ -8,7 +8,7 @@ paths:
   /api/instrument/{instrument}/tick:
     put:
       tags:
-        - Get Maintenance
+        - Chart Maintenance
       summary: Modify tick
       description: Modify tick
       operationId: putInstrumentTick
@@ -57,7 +57,7 @@ paths:
   /api/instrument/{instrument}/live-statistics:
     get:
       tags:
-        - Get Instrument
+        - Chart Data
       summary: Get instrument live statistics
       description: Get instrument live statistics
       operationId: getInstrumentLiveStatistics
