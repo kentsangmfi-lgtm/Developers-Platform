@@ -47,6 +47,7 @@ The workflow in `.github/workflows/github-pages.yml` validates pull requests and
 Before the first deployment, set **Settings > Pages > Build and deployment > Source** to **GitHub Actions** in the GitHub repository.
 
 ## Update `redocly.yaml` to control open api tags visibility
+
 ```yaml
 plugins:
   - ./redocly-plugins/tag-whitelist.cjs
@@ -64,5 +65,4 @@ decorators:
       - Account Updates
       - Chart Data
   remove-unused-components: on
-
 ```
